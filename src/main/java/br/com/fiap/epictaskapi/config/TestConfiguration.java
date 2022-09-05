@@ -5,28 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import br.com.fiap.epictaskapi.model.Role;
 import br.com.fiap.epictaskapi.model.Task;
-import br.com.fiap.epictaskapi.model.User;
 import br.com.fiap.epictaskapi.repository.TaskRepository;
-import br.com.fiap.epictaskapi.repository.UserRepository;
 
 @Configuration
 public class TestConfiguration implements CommandLineRunner {
 
     @Autowired
-    TaskRepository taskRepository;
-
-    @Autowired
-    UserRepository userRepository;
+    TaskRepository repository;
 
     @Override
     public void run(String... args) throws Exception {
 
-        taskRepository.saveAll(List.of(
+        repository.saveAll(List.of(
             new Task("Modelar BD", "Modelar as tabelas do banco"),
             new Task("Protipar", "Prototipo das telas do site"),
             new Task("Modelar BD", "Modelar as tabelas do banco"),
@@ -50,15 +42,6 @@ public class TestConfiguration implements CommandLineRunner {
             new Task("Modelar BD", "Modelar as tabelas do banco"),
             new Task("Protipar", "Prototipo das telas do site")
         ));
-
-        User user = new User()
-            .name("João")
-            .email("joao@fiap.com")
-            .password(new BCryptPasswordEncoder().encode("123"));
-
-        userRepository.save(
-            user
-        );
         
     }
     
